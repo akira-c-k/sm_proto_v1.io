@@ -1,0 +1,19 @@
+# file
+.DS_Store
+.dockerignore
+Dockerfile
+.env
+*.py
+requirements.txt
+*.db
+*.sqlite3
+_dev.md
+dev.md
+config.json
+# config.json.js
+
+# directory
+misc/
+srcenv/
+test/
+creative/
