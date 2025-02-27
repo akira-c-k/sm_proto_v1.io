@@ -93,7 +93,7 @@
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                background-color: rgb(23, 224, 160);
+                background-color: rgb(20, 240, 160);
                 z-index: 2;
                 justify-content: space-between;
             }
@@ -159,16 +159,17 @@
                 right: 0;
             }
             header .menu_screen button {
-                width: 120px;
-                height: 60px;
-                padding: 15px;
-                margin: 10px;
-                background-color: rgba(220,220,220,1);
-                box-shadow: 0 5px 0 rgba(160,160,160,1);
+                width: 140px;
+                height: 40px;
+                padding: 2px;
+                margin: 2px;
+                background-color: rgb(20, 240, 160);
+                box-shadow: 0 5px 0 rgb(0, 220, 140);
                 border: none;
                 text-align: center;
                 cursor: pointer;
-                font-size: 16px;
+                font-size: 14px;
+                color: rgb(90,90,90);
                 transition: background-color 0.3s ease;
             }
             header .menu_screen button:active {
@@ -195,7 +196,7 @@
                 margin: 0 auto;
             }
             main .b_c_00 {
-                display: block;
+                display: none;
             }
             main .b_c_00.active {
                 display: block;
@@ -297,7 +298,7 @@
                 <span></span>
             </div>
             <div class="menu_screen" id="menu_screen">
-                <button class="menu_btn_01" onclick="switch_language">switch language</button>
+                <button class="menu_btn_01" onclick="switch_language()">switch language</button>
                 <!-- <button onclick="exit()">ログアウト</button> -->
                 <!-- <button></button> -->
             </div>            
@@ -386,7 +387,7 @@
             return timestamp;
         };
 
-        // function handleScroll() {
+        // function switch_language() {
         // };
 
         function handleHamburger() {
@@ -396,10 +397,19 @@
             menu_screen.classList.toggle("active");
         };
 
-        function select_menu(event) {
-            event_value = event.target.classList[0];
-            // console.log(event_value);
-            
+        async function select_menu(event) {
+            media_value = event.target.classList[0];
+            // console.log(media_value);
+            const currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('media_value', media_value);
+            window.history.replaceState({}, '', currentUrl);
+
+            document.getElementById("blc_container_00").classList.remove("active");
+            showLoading();
+            setTimeout(() => {
+                hideLoading();
+                document.getElementById("blc_container_01").classList.add("active");
+            }, 500);
         }
 
     </script>
