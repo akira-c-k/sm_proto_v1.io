@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Sunny Me</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            html {
+                background-color: rgb(255,255,255);
+            }
+            
+            body {
+                position: fixed;
+                top: 0;
+                left: 0;
+                margin: 0 auto;
+                padding: 0 auto;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                font-family: 
+                    /* 'SF Pro JP',  */
+                    /* 'SF Pro Text',  */
+                    /* 'SF Pro Icons',  */
+                    'Hiragino Kaku Gothic Pro', 
+                    'ヒラギノ角ゴ Pro W3', 
+                    /* 'メイリオ',  */
+                    /* 'Meiryo',  */
+                    /* 'MS PGothic',  */
+                    'Helvetica Neue', 
+                    'Helvetica', 
+                    /* 'Arial',  */
+                    sans-serif;
+            }            
+
+            @keyframes pulse {
+                from {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                to {
+                    opacity: .25;
+                    transform: scale(.75);
+                }
+            }
+            .loading {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(255,255,255,0.8);
+                z-index: 1000;
+            }
+            .pulse_container {
+                width: 120px;
+                display: flex;
+                margin: 0 auto;
+                justify-content: space-between;
+                align-items: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .pulse_bubble {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: rgba(230,230,230,1);
+            }
+            .pulse_bubble_00 {
+                animation: pulse .4s ease 0s infinite alternate;
+            }
+            .pulse_bubble_01 {
+                animation: pulse .4s ease .2s infinite alternate;
+            }
+            .pulse_bubble_02 {
+                animation: pulse .4s ease .4s infinite alternate;
+            }
+        
+            header {
+                position: fixed;
+                top: 0%;
+                left: 0%;
+                width: 100%;
+                height: 10%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                background-color: rgb(23, 224, 160);
+                z-index: 2;
+                justify-content: space-between;
+            }
+            header .logo_img {
+                position: fixed;
+                left: 25%;
+                width: 50%;
+                max-height: 60%;
+            }
+            header .hamburger_menu {
+                position: fixed;
+                right: 0%;
+                width: 30px;
+                height: 25px;
+                margin: 0px 20px 0px 0px;
+                cursor: pointer;
+                z-index: 11;
+            }
+            header .hamburger_menu span {
+                position: absolute;
+                width: 100%;
+                height: 3px;
+                background-color: rgba(90,90,90,1);
+                transition: all 0.3s ease;
+            }
+            header .hamburger_menu span:first-of-type {
+                top: 0%;
+            }
+            header .hamburger_menu.active span:first-of-type {
+                transform: rotate(45deg);
+                top: 0%;
+            }
+            header .hamburger_menu span:nth-of-type(2) {
+                top: 50%;
+            }
+            header .hamburger_menu.active span:nth-of-type(2) {
+                opacity: 0;
+            }
+            header .hamburger_menu span:last-of-type {
+                top: 100%;
+            }
+            header .hamburger_menu.active span:last-of-type {
+                transform: rotate(-45deg);
+                top: 0%;
+            }
+
+            header .menu_screen {
+                position: fixed;
+                top: 0;
+                right: -50%;
+                width: 50%;
+                height: 100%;
+                background-color: rgba(255,255,255,1);
+                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+                transition: right 0.3s ease;
+                z-index: 10;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+            }
+            header .menu_screen.active {
+                right: 0;
+            }
+            header .menu_screen button {
+                width: 120px;
+                height: 60px;
+                padding: 15px;
+                margin: 10px;
+                background-color: rgba(220,220,220,1);
+                box-shadow: 0 5px 0 rgba(160,160,160,1);
+                border: none;
+                text-align: center;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
+            }
+            header .menu_screen button:active {
+                box-shadow: none;
+                transform: translateY(5px);
+            }
+            header .menu_screen .menu_btn_01 {
+                margin-top: 50px;
+            }
+
+            main {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center; /*horaizontal*/
+                align-items: center; /*vertical*/
+                z-index: 1;
+            }
+            main .blc_container {
+                width: 80%;
+                height: 360px;
+                justify-content: center; /*horaizontal*/
+                align-items: center; /*vertical*/
+                margin: 0 auto;
+            }
+            main .b_c_00 {
+                display: block;
+            }
+            main .b_c_00.active {
+                display: block;
+                width: 95%; /* overwrite */
+                height: 80%; /* overwrite */
+            }
+            main .b_c_01 {
+                display: none;
+            }
+            main .b_c_01.active {
+                display: block;
+                width: 95%; /* overwrite */
+                height: 80%; /* overwrite */
+            }
+            main .b_c_02 {
+                display: none;
+            }
+            main .b_c_02.active {
+                display: block;
+                width: 95%; /* overwrite */
+                height: 80%; /* overwrite */
+            }
+            main .blc {
+                width: 300px;
+                height: 60px;
+                justify-content: center; /*horaizontal*/
+                align-items: center; /*vertical*/
+                display: flex;
+                flex-direction: row;
+                margin: 10px auto;
+            }
+
+            main .media_container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                width: 90%;
+                max-height: 100%;
+                padding: 10px;
+                margin: 10px auto ;
+                overflow-y: scroll;
+            }
+            main .media_row {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            main .media_row img {
+                width: 80%;
+                height: auto;
+            }
+            main .media_row label {
+                margin-top: 5px;
+                font-size: 14px;
+                color: #333;
+            }
+
+            main .btn {
+                width: 120px;
+                height: 36px;
+                cursor: pointer;
+                z-index: 10;
+                border: 1px solid rgba(171,171,171,1);
+                border-radius: 18px;
+            }
+			
+            footer {
+                position: fixed;
+                top: 95%;
+                left: 0%;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                height: 5%;
+                /* background-color: rgba(90,90,90,1); */
+                z-index: 2;
+                justify-content: space-between;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner_box">
+                <div class="pulse_container">  
+                    <div class="pulse_bubble pulse_bubble_00"></div>
+                    <div class="pulse_bubble pulse_bubble_01"></div>
+                    <div class="pulse_bubble pulse_bubble_02"></div>
+                </div>
+            </div>
+        </div>
+        
+        <header>
+            <img class="logo_img" src="media/logo.svg" id="logo_img">
+            <div class="hamburger_menu" id="hamburger_menu" onclick="handleHamburger()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu_screen" id="menu_screen">
+                <button class="menu_btn_01" onclick="switch_language">switch language</button>
+                <!-- <button onclick="exit()">ログアウト</button> -->
+                <!-- <button></button> -->
+            </div>            
+        </header>
+
+        <main>
+            <div class="blc_container b_c_00" id="blc_container_00">
+                <div class="media_container">
+                    <div class="media_row">
+                        <img class="media_00_l" src="media/img_00_l.svg" onclick="select_menu(event)">
+                        <label>label_00_l</label>
+                    </div>
+                    <div class="media_row">
+                        <img class="media_00_r" src="media/img_00_r.svg" onclick="select_menu(event)">
+                        <label>label_00_r</label>
+                    </div>
+                    <div class="media_row">
+                        <img class="media_01_l" src="media/img_01_l.svg" onclick="select_menu(event)">
+                        <label>label_01_l</label>
+                    </div>
+                    <div class="media_row">
+                        <img class="media_01_r" src="media/img_01_r.svg" onclick="select_menu(event)">
+                        <label>label_01_r</label>
+                    </div>
+                    <div class="media_row">
+                        <img class="media_02_l" src="media/img_02_l.svg" onclick="select_menu(event)">
+                        <label>label_02_l</label>
+                    </div>
+                    <div class="media_row">
+                        <img class="media_02_r" src="media/img_02_r.svg" onclick="select_menu(event)">
+                        <label>label_02_r</label>
+                    </div>
+                    <div class="media_row">
+                        <img class="media_03_l" src="media/img_03_l.svg" onclick="select_menu(event)">
+                        <label>label_03_l</label>
+                    </div>
+                    <div class="media_row">
+                        <img class="media_03_r" src="media/img_03_r.svg" onclick="select_menu(event)">
+                        <label>label_03_r</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="blc_container b_c_01" id="blc_container_01">
+            </div>
+
+            <div class="blc_container b_c_02" id="blc_container_02">
+            </div>
+
+        </main>
+
+        <footer>
+        </footer>
+    </body>
+
+    <script>
+        ///////////////////
+        //   variables   //
+        ///////////////////
+
+
+        ///////////////////
+        //   functions   //
+        ///////////////////
+        window.onload = function() {
+            document.getElementById("blc_container_00").classList.add("active");
+        };  
+
+        function showLoading() {
+            document.getElementById("loading").style.display = "block";
+        };
+
+        function hideLoading() {
+            document.getElementById("loading").style.display = "none";
+        };
+
+        function getTimeStamp() {
+            let now = new Date();
+            let year = now.getFullYear();
+            let month = ("0" + (now.getMonth() + 1)).slice(-2);
+            let day = ("0" + now.getDate()).slice(-2);
+            let hours = ("0" + now.getHours()).slice(-2);
+            let minutes = ("0" + now.getMinutes()).slice(-2);
+            let seconds = ("0" + now.getSeconds()).slice(-2);
+            let timestamp = year + month + day + hours + minutes + seconds;
+            return timestamp;
+        };
+
+        // function handleScroll() {
+        // };
+
+        function handleHamburger() {
+            const hamburger_menu = document.getElementById("hamburger_menu");
+            hamburger_menu.classList.toggle('active');
+            const menu_screen = document.getElementById("menu_screen");
+            menu_screen.classList.toggle("active");
+        };
+
+        function select_menu(event) {
+            event_value = event.target.classList[0];
+            // console.log(event_value);
+            
+        }
+
+    </script>
+</html>

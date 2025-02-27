@@ -1,10 +1,1 @@
-# CCC
-
-This application is developed for ~.
-<br>
-[URL](https://akira-c-k.github.io/ccc.io/fe/login.html)
-<br>
-
-### objective
-
-### 
+[URL](https://akira-c-k.github.io/sm_proto_v1.io/fe/index.html)
