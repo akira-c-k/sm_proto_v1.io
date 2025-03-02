@@ -275,8 +275,8 @@
 
             main .calendar_container {
                 width: 100%;
-                height: 60%;
-                margin-top: 10px;
+                height: 40%;
+                margin-top: 5px;
             }
             main .calendar_label {
                 width: 100%;
@@ -312,11 +312,11 @@
             }
             main .calendar_wrap {
                 width: 80%;
-                height: 40%;
+                height: 30%;
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
-                gap: 40px;
-                margin: 5px auto;
+                gap: 30px;
+                margin: 2px auto;
             }
             @media (max-width: 767.98px) {
                 main .calendar_wrap {
@@ -333,31 +333,206 @@
             main .calendar td {
                 border: 1px solid rgb(20, 120, 80);
                 text-align: center;
-                padding: 5px;
+                padding: 3px;
                 font-size: 12px;
             }
             main .calendar th {
+                height: 10px;
                 background-color: rgb(20, 240, 160);
             }
             main .calendar td {
+                height: 10px;
                 background-color: rgb(255, 255, 255);
+            }
+            main .calendar td.active {
+                background-color: rgb(0, 220, 140);
+            }
+            main .calendar td.off {
+                background-color: rgb(220, 220, 220);
             }
             @media (max-width: 767.98px) {
                 main .calendar th,
                 main .calendar td {
                     border: 1px solid rgb(20, 120, 80);
                     text-align: center;
-                    padding: 5px;
+                    padding: 2px;
                     font-size: 12px;
                 }
                 main .calendar th {
-                    padding: 3px 6px;
+                    padding: 2px;
+                }
+                main .calendar td.active {
+                    background-color: rgb(0, 220, 140);
+                }
+                main .calendar td.off {
+                    background-color: rgb(220, 220, 220);
                 }
             }
-            main .calendar .today {
-                background-color: rgb(0, 220, 140);
+
+            main .clock_container {
+                width: 100%;
+                height: 55%;
+                margin-top: 5px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
             }
-			
+            main .clock_label {
+                width: 100%;
+                height: 30px;
+                background-color: rgb(0, 220, 140);
+                color: rgb(0,0,0);
+                font-size: 20px;
+                margin: 5px auto;
+                display: flex;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+            }
+            main .clock_btns {
+                position: relative;
+                width: 80%;
+                justify-content: center;
+                display: flex;
+                flex-direction: row;
+                margin: 10px auto;
+            }
+            main .clock_h_btn,
+            main .clock_m_btn {
+                width: 80px;
+                border-radius: 10%;
+                font-size: 14px;
+            }
+            main .clock_h_btn.active,
+            main .clock_m_btn.active {
+                background-color: rgb(180, 220, 180);
+            }
+            main .clock_h_btn::before {
+                content: 'hour';
+                font-weight: normal;
+            }
+            main .clock_m_btn::before {
+                content: 'minute';
+                font-weight: normal;
+            }
+            main .clock {
+                position: relative;
+                display: none;
+                width: 200px;
+                height: 200px;
+                border: 4px solid rgb(0,0,0);
+                border-radius: 50%;
+                background: rgb(255,255,255);
+            }
+            main .clock.active {
+                display: block;
+            }
+            main .clock .hour-mark {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                transform-origin: center;
+                font-size: 12px;
+                color: rgb(0,0,0);
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                pointer-events: none;
+            }
+            main .hour-mark span {
+                transform: translateY(10px);
+            }
+            main .hour-mark:nth-child(2) { transform: rotate(0deg); }
+            main .hour-mark:nth-child(3) { transform: rotate(15deg); }
+            main .hour-mark:nth-child(4) { transform: rotate(30deg); }
+            main .hour-mark:nth-child(5) { transform: rotate(45deg); }
+            main .hour-mark:nth-child(6) { transform: rotate(60deg); }
+            main .hour-mark:nth-child(7) { transform: rotate(75deg); }
+            main .hour-mark:nth-child(8) { transform: rotate(90deg); }
+            main .hour-mark:nth-child(9) { transform: rotate(105deg); }
+            main .hour-mark:nth-child(10) { transform: rotate(120deg); }
+            main .hour-mark:nth-child(11) { transform: rotate(135deg); }
+            main .hour-mark:nth-child(12) { transform: rotate(150deg); }
+            main .hour-mark:nth-child(13) { transform: rotate(165deg); }
+            main .hour-mark:nth-child(14) { transform: rotate(180deg); }
+            main .hour-mark:nth-child(15) { transform: rotate(195deg); }
+            main .hour-mark:nth-child(16) { transform: rotate(210deg); }
+            main .hour-mark:nth-child(17) { transform: rotate(225deg); }
+            main .hour-mark:nth-child(18) { transform: rotate(240deg); }
+            main .hour-mark:nth-child(19) { transform: rotate(255deg); }
+            main .hour-mark:nth-child(20) { transform: rotate(270deg); }
+            main .hour-mark:nth-child(21) { transform: rotate(285deg); }
+            main .hour-mark:nth-child(22) { transform: rotate(300deg); }
+            main .hour-mark:nth-child(23) { transform: rotate(315deg); }
+            main .hour-mark:nth-child(24) { transform: rotate(330deg); }
+            main .hour-mark:nth-child(25) { transform: rotate(345deg); }
+            main .hand {
+                position: absolute;
+                bottom: 50%;
+                left: 50%;
+                transform-origin: bottom;
+                background: black;
+            }
+            main .hour-hand {
+                width: 6px;
+                height: 60px;
+                transform: translate(-50%, 0) rotate(60deg);
+            }
+            main .minute-hand {
+                width: 3px;
+                height: 90px;
+                background: rgb(90,90,90);
+                transform: translate(-50%, 0) rotate(150deg);
+            }
+            main .center {
+                width: 12px;
+                height: 12px;
+                background: rgb(0,0,0);
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .digital_container {
+                width: 100%;
+                height: 30px;
+                margin-top: 5px;
+                background-color: rgb(255,255,255);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .digital {
+                color: rgb(20,120,40);
+                text-shadow: 0 0 20px rgb(100, 200, 120);
+                line-height: 1.2;
+                text-align: center;
+            }
+            .digital_time {
+                font-size: 24px;
+            }
+
+            main .transition_container {
+                width: 100%;
+                height: 10%;
+                margin-top: 5px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            main .transition_btn {
+                width: 80px;
+                border-radius: 10%;
+                font-size: 18px;
+            }
+            main .transition_btn::before {
+                content: 'search';
+                font-weight: bold;
+            }
+
             footer {
                 position: fixed;
                 top: 95%;
@@ -386,7 +561,7 @@
         
         <header>
             <img class="logo_img" src="media/logo.svg" id="logo_img">
-            <div class="hamburger_menu" id="hamburger_menu" onclick="handleHamburger()">
+            <div class="hamburger_menu" id="hamburger_menu" onclick="handle_hamburger()">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -438,15 +613,68 @@
 
             <div class="blc_container b_c_01" id="blc_container_01">
                 <div class="calendar_container">
-                    <div class="calendar_label">
-                        <label>Calendar</label> <!-- add the name of month !!! -->
-                    </div>
+                    <!-- <div class="calendar_label"> -->
+                        <!-- <label>Calendar</label> -->
+                    <!-- </div> -->
                     <div class="calendar_btns">
-                        <button class="calendar_prev_btn"></button>
-                        <span>March</span>
-                        <button class="calendar_next_btn"></button>
+                        <button class="calendar_prev_btn" onclick="adjust_calendar(-1)"></button>
+                        <span id="month_name"></span>
+                        <button class="calendar_next_btn" onclick="adjust_calendar(+1)"></button>
                     </div>                    
                     <div id="calendar" class="calendar_wrap"></div>
+                </div>
+                <div class="clock_container">
+                    <!-- <div class="clock_label"> -->
+                        <!-- <label>Clock</label> -->
+                    <!-- </div> -->
+                    <div class="clock_btns">
+                        <button class="clock_h_btn" id="clock_h_btn"></button>
+                        <button class="clock_m_btn" id="clock_m_btn"></button>
+                    </div>
+                    <div class="clock" id="hour-clock">
+                        <div class="center"></div>
+                        <div class="hour-mark"><span>0</span></div>
+                        <div class="hour-mark"><span>1</span></div>
+                        <div class="hour-mark"><span>2</span></div>
+                        <div class="hour-mark"><span>3</span></div>
+                        <div class="hour-mark"><span>4</span></div>
+                        <div class="hour-mark"><span>5</span></div>
+                        <div class="hour-mark"><span>6</span></div>
+                        <div class="hour-mark"><span>7</span></div>
+                        <div class="hour-mark"><span>8</span></div>
+                        <div class="hour-mark"><span>9</span></div>
+                        <div class="hour-mark"><span>10</span></div>
+                        <div class="hour-mark"><span>11</span></div>
+                        <div class="hour-mark"><span>12</span></div>
+                        <div class="hour-mark"><span>13</span></div>
+                        <div class="hour-mark"><span>14</span></div>
+                        <div class="hour-mark"><span>15</span></div>
+                        <div class="hour-mark"><span>16</span></div>
+                        <div class="hour-mark"><span>17</span></div>
+                        <div class="hour-mark"><span>18</span></div>
+                        <div class="hour-mark"><span>19</span></div>
+                        <div class="hour-mark"><span>20</span></div>
+                        <div class="hour-mark"><span>21</span></div>
+                        <div class="hour-mark"><span>22</span></div>
+                        <div class="hour-mark"><span>23</span></div>
+                        <div class="hand hour-hand"></div>
+                    </div>
+                    <div class="clock" id="minute-clock">
+                        <div class="center"></div>
+                        <div class="minute-mark"><span>0</span></div>
+                        <div class="minute-mark"><span>15</span></div>
+                        <div class="minute-mark"><span>30</span></div>
+                        <div class="minute-mark"><span>45</span></div>
+                        <div class="hand minute-hand"></div>
+                    </div>
+                    <div class="digital_container">
+                        <div class="digital">
+                            <p class="digital_time">04:10</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="transition_container">
+                    <button class="transition_btn"></button>
                 </div>
             </div>
 
@@ -465,25 +693,28 @@
         ///////////////////
         const date = new Date();
         const today = date.getDate();
-        const currentMonth = date.getMonth();
+        let currentMonth = date.getMonth();
+        let currentYear = new Date().getFullYear();
 
         ///////////////////
         //   functions   //
         ///////////////////
         window.onload = function() {
             document.getElementById("blc_container_00").classList.add("active");
-            document.getElementById("calendar").innerHTML = createCalendar(currentMonth);
+            document.getElementById("calendar").innerHTML = create_calendar(currentYear, currentMonth);
+            document.getElementById("hour-clock").classList.add("active");
+            document.getElementById("clock_h_btn").classList.add("active");
         };  
 
-        function showLoading() {
+        function show_loading() {
             document.getElementById("loading").style.display = "block";
         };
 
-        function hideLoading() {
+        function hide_loading() {
             document.getElementById("loading").style.display = "none";
         };
 
-        function getTimeStamp() {
+        function get_time_stamp() {
             let now = new Date();
             let year = now.getFullYear();
             let month = ("0" + (now.getMonth() + 1)).slice(-2);
@@ -498,78 +729,135 @@
         // function switch_language() {
         // };
 
-        function handleHamburger() {
+        function handle_hamburger() {
             const hamburger_menu = document.getElementById("hamburger_menu");
             hamburger_menu.classList.toggle('active');
             const menu_screen = document.getElementById("menu_screen");
             menu_screen.classList.toggle("active");
         };
 
-        function createCalendar(month) {
-            const monthDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-            let calendarHTML = '<table class="calendar"><thead><tr>';
+        function create_calendar(year, month) {
+            const month_days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            const month_names = {
+                0: "January", 1: "February", 2: "March", 3: "April",
+                4: "May", 5: "June", 6: "July", 7: "August",
+                8: "September", 9: "October", 10: "November", 11: "December"
+            };
 
+            let calendar_html = '<table class="calendar"><thead><tr>';
             for (let i = 0; i < 7; i++) {
                 if (i === 0) {
-                    calendarHTML += `<th class="sun">${monthDays[i]}</th>`;
+                    calendar_html += `<th class="sun">${month_days[i]}</th>`;
                 } else if (i === 6) {
-                    calendarHTML += `<th class="sat">${monthDays[i]}</th>`;
+                    calendar_html += `<th class="sat">${month_days[i]}</th>`;
                 } else {
-                    calendarHTML += `<th>${monthDays[i]}</th>`;
+                    calendar_html += `<th>${month_days[i]}</th>`;
                 }
             }
-            calendarHTML += '</tr></thead><tbody>';
-            const daysInMonth = new Date(date.getFullYear(), month + 1, 0).getDate();
-            const firstDay = new Date(date.getFullYear(), month, 1).getDay();
-            const daysInPrevMonth = new Date(date.getFullYear(), month, 0).getDate();
-            let dayCount = 1;
-            let prevDayCount = daysInPrevMonth - firstDay + 1;
+            calendar_html += '</tr></thead><tbody>';
+
+            const days_in_month = new Date(year, month + 1, 0).getDate();
+            const first_day = new Date(year, month, 1).getDay();
+            const days_in_prev_month = new Date(year, month, 0).getDate();
+
+            let day_count = 1;
+            let prev_day_count = days_in_prev_month - first_day + 1;
+
             for (let i = 0; i < 6; i++) {
-                calendarHTML += '<tr>';
+                calendar_html += '<tr>';
                 for (let j = 0; j < 7; j++) {
-                    if (i === 0 && j < firstDay) {
-                        calendarHTML += `<td class="mute">${prevDayCount}</td>`;
-                        prevDayCount++;
-                    } else if (dayCount > daysInMonth) {
-                        let nextMonthDayCount = dayCount - daysInMonth;
-                        calendarHTML += `<td class="mute">${nextMonthDayCount}</td>`;
-                        dayCount++;
+                    if (i === 0 && j < first_day) {
+                        calendar_html += `<td class="prev_month off">${prev_day_count}</td>`;
+                        prev_day_count++;
+                    } else if (day_count > days_in_month) {
+                        let next_month_day_count = day_count - days_in_month;
+                        calendar_html += `<td class="next_month off">${next_month_day_count}</td>`;
+                        day_count++;
                     } else {
-                        if (dayCount === today && month === currentMonth) {
-                            calendarHTML += `<td class="today">${dayCount}</td>`;
-                        } 
-                        else if (j === 1) {
-                            calendarHTML += `<td class="off">${dayCount}</td>`;
-                        } else {
-                            calendarHTML += `<td>${dayCount}</td>`;
-                        }
-                        dayCount++;
+                        calendar_html += `<td onclick="select_date(event)">${day_count}</td>`;
+                        day_count++;
                     }
                 }
-                calendarHTML += '</tr>';
-                if (dayCount - daysInMonth > 7) {
+                calendar_html += '</tr>';
+                if (day_count - days_in_month > 7) {
                     break;
                 }
             }
-            calendarHTML += '</tbody></table>';
-            return calendarHTML;
-        };
+
+            calendar_html += '</tbody></table>';
+            document.getElementById("month_name").innerText = `${month_names[month]} ${year}`;
+            return calendar_html;
+        }
+
+        function adjust_calendar(num) {
+            if (num === -1) {
+                if (currentYear === new Date().getFullYear() && currentMonth === 0) {
+                    alert("We cannot go back to the previous year.");
+                    return;
+                }
+                if (currentMonth === 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                } else {
+                    currentMonth--;
+                }
+            } else {
+                if (currentMonth === 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                } else {
+                    currentMonth++;
+                }
+            }
+            document.getElementById("calendar").innerHTML = create_calendar(currentYear, currentMonth);
+        }
+
+        // function switch_clock {
+
+        // }
+
+        // function switch_hour {
+
+        // }
 
         async function select_menu(event) {
+            // update query-parameter
             media_value = event.target.classList[0];
             // console.log(media_value);
             const currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set('media_value', media_value);
-            window.history.replaceState({}, '', currentUrl);
-
+            currentUrl.searchParams.set("media_value", media_value);
+            window.history.replaceState({}, "", currentUrl);
+            // update UI
             document.getElementById("blc_container_00").classList.remove("active");
-            showLoading();
+            show_loading();
             setTimeout(() => {
-                hideLoading();
+                hide_loading();
                 document.getElementById("blc_container_01").classList.add("active");
             }, 500);
         }
 
+        async function select_date(event) {
+            if (!event.target.classList.contains("prev_month") && !event.target.classList.contains("next_month")) {
+                // update query-parameter
+                month_value = currentMonth + 1;
+                month_value = "00" + String(month_value);
+                month_value = month_value.slice(-2);
+                day_value = event.target.innerText;
+                day_value = "00" + String(day_value);
+                day_value = day_value.slice(-2);
+                const date_value = `${currentYear}${month_value}${day_value}`;
+                // console.log(date_value);
+                const currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.set('date_value', date_value);
+                window.history.replaceState({}, '', currentUrl);
+                // update UI
+                active_dates = document.querySelectorAll(".calendar td.active");
+                active_dates.forEach(function(active_date) {
+                    active_date.classList.remove("active");
+                });
+                event.target.classList.add("active");
+            }
+        }
 
     </script>
 </html>
