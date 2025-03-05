@@ -220,11 +220,11 @@
                 align-items: center;
             }
             main .breadcrumb_container span {
-                color: rgba(90,90,90);
+                color: rgb(140,140,140);
                 font-size: 10px;
             }
             main .breadcrumb_container span.active{
-                color: rgba(0,0,0);
+                color: rgb(0,0,0);
             }
 
             main .blc_container {
@@ -292,7 +292,7 @@
             }
             main .media_row img {
                 width: 80%;
-                height: auto;
+                max-height: 200px;
             }
             main .media_row label {
                 margin-top: 5px;
@@ -569,7 +569,7 @@
                 font-weight: bold;
             }
 
-            @media (max-height: 325px) {
+            @media (max-height: 530px) {
                 main .calendar_btns {
                     width: 80%;
                     justify-content: space-between;
@@ -668,23 +668,24 @@
                 <button class="menu_btn_01" onclick="switch_language()">switch language</button>
                 <!-- <button></button> -->
                 <!-- <button></button> -->
-            </div>            
+            </div>
         </header>
 
         <main>
             <div class="breadcrumb_container">
-                <span id="breadcrumb_01">select menu</span>
+                <span class="breadcrumb_01" onclick="handle_breadcrumb()">select menu</span>
                 <span>&nbsp; > &nbsp;</span>
-                <span id="breadcrumb_02">select date & time</span>
+                <span class="breadcrumb_02" onclick="handle_breadcrumb()">select date & time</span>
             </div>
+
             <div class="blc_container b_c_00" id="blc_container_00">
                 <div class="media_container">
                     <div class="media_row">
-                        <img class="hair" src="media/img_00_l.svg" onclick="select_menu(event)">
+                        <img class="hair" src="media/hair.svg" onclick="select_menu(event)">
                         <label>hair</label>
                     </div>
                     <div class="media_row">
-                        <img class="nail" src="media/img_00_r.svg" onclick="select_menu(event)">
+                        <img class="nail" src="media/nail.svg" onclick="select_menu(event)">
                         <label>nail / lash</label>
                     </div>
                     <div class="media_row">
@@ -761,7 +762,7 @@
                     </div>
                 </div>
                 <div class="transition_container">
-                    <button class="transition_btn"></button>
+                    <button class="transition_btn" onclick="transition()"></button>
                 </div>
             </div>
 
@@ -790,6 +791,7 @@
         ///////////////////
         window.onload = function() {
             document.getElementById("blc_container_00").classList.add("active");
+            document.querySelector(".breadcrumb_01").classList.add("active");
             document.getElementById("calendar").innerHTML = create_calendar(currentYear, currentMonth);
             document.querySelector("td.active").click();
             document.getElementById("hour_clock").classList.add("active");
@@ -798,12 +800,30 @@
                 handle_hour(now_hour + 1);
                 handle_minute(now_minute);
                 handle_digital(now_hour + 1, now_minute);
+                hour_value = "00" + String(now_hour + 1);
+                hour_value = hour_value.slice(-2);
+                minute_value = "00";
             } else {
                 handle_hour(now_hour);
                 handle_minute(now_minute);
                 handle_digital(now_hour, now_minute);
+                if (now_minute < 15) {
+                    minute_value = 15;
+                } else if (now_minute < 30) {
+                    minute_value = 30;
+                } else if (now_minute < 45) {
+                    minute_value = 45;
+                }
+                hour_value = "00" + String(now_hour);
+                hour_value = hour_value.slice(-2);
+                minute_value = "00" + String(minute_value);
+                minute_value = minute_value.slice(-2);   
             }
-        };  
+            time_value = hour_value + minute_value;
+            const currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('time_value', time_value);
+            window.history.replaceState({}, '', currentUrl);
+        };
 
         function show_loading() {
             document.getElementById("loading").style.display = "block";
@@ -833,7 +853,16 @@
         };
 
         function handle_breadcrumb() {
-            document.getElementById("breadcrumb_01").style.Color = "rgb(0,0,0)";
+            if (document.querySelector(".breadcrumb_02").classList.contains("active")) {
+                document.querySelector(".breadcrumb_01").classList.add("active");
+                document.querySelector(".breadcrumb_02").classList.remove("active");
+                document.getElementById("blc_container_01").classList.remove("active");
+                show_loading();
+                setTimeout(() => {
+                    hide_loading();
+                    document.getElementById("blc_container_00").classList.add("active");
+                }, 500);
+            }
         }
 
         function create_calendar(year, month) {
@@ -995,6 +1024,9 @@
                 hide_loading();
                 document.getElementById("blc_container_01").classList.add("active");
             }, 500);
+            // update breadcrumb
+            document.querySelector(".breadcrumb_01").classList.remove("active");
+            document.querySelector(".breadcrumb_02").classList.add("active");
         };
 
         async function select_date(event) {
@@ -1038,6 +1070,27 @@
                 handle_digital(selected_hour, selected_minute);
             } 
             // update query-parameter
+            time_value = document.querySelector(".digital_time").innerText;
+            time_value = time_value.replace(":", "");
+            // console.log(time_value);
+            const currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('time_value', time_value);
+            window.history.replaceState({}, '', currentUrl);  
+        };
+
+        function transition() {
+            let params = new URLSearchParams(window.location.search);
+            let media_value = params.get("media_value");
+            let date_value = params.get("date_value");
+            let time_value = params.get("time_value");
+            let base_url = 'https://beauty.hotpepper.jp/';
+            if (media_value === "hair") {
+                base_url += "svcSA/macAH/salon/calendar/" + date_value + "/";
+            } else {
+                base_url += media_value + "/svcSA/macAH/salon/calendar/" + date_value + "/";
+            }
+            let url = base_url + "?startTimeFrom=" + time_value;
+            window.open(url, "_blank");
         };
     </script>
 </html>
