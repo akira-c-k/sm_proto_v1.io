@@ -285,14 +285,23 @@
                 margin: 10px auto ;
             }
             main .media_row {
+                height: 220px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
             }
+            main .media {
+                height: 180px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
             main .media_row img {
                 width: 80%;
-                max-height: 200px;
+                max-height: 160px;
             }
             main .media_row label {
                 margin-top: 5px;
@@ -569,7 +578,7 @@
                 font-weight: bold;
             }
 
-            @media (max-height: 530px) {
+            @media (max-height: 525px) {
                 main .calendar_btns {
                     width: 80%;
                     justify-content: space-between;
@@ -681,19 +690,27 @@
             <div class="blc_container b_c_00" id="blc_container_00">
                 <div class="media_container">
                     <div class="media_row">
-                        <img class="hair" src="media/hair.svg" onclick="select_menu(event)">
+                        <div class="media">
+                            <img class="hair" src="media/hair.svg" onclick="select_menu(event)">
+                        </div>
                         <label>hair</label>
                     </div>
                     <div class="media_row">
-                        <img class="nail" src="media/nail.svg" onclick="select_menu(event)">
+                        <div class="media">
+                            <img class="nail" src="media/nail.svg" onclick="select_menu(event)">
+                        </div>
                         <label>nail / lash</label>
                     </div>
                     <div class="media_row">
-                        <img class="relax" src="media/img_01_l.svg" onclick="select_menu(event)">
+                        <div class="media">
+                            <img class="relax" src="media/img_01_l.svg" onclick="select_menu(event)">
+                        </div>
                         <label>relax</label>
                     </div>
                     <div class="media_row">
-                        <img class="esthe" src="media/img_01_r.svg" onclick="select_menu(event)">
+                        <div class="media">
+                            <img class="esthe" src="media/img_01_r.svg" onclick="select_menu(event)">
+                        </div>
                         <label>esthe</label>
                     </div>
                 </div>
