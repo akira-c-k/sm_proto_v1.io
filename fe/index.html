@@ -102,7 +102,7 @@
                 align-items: center;
                 justify-content: center;
                 width: 120px;
-                height: 30px;
+                height: 40px;
                 border: 1px solid rgb(20,120,40);
                 background-color: rgba(255,255,255);
                 border-radius: 15%;
@@ -703,13 +703,13 @@
                     </div>
                     <div class="media_row">
                         <div class="media">
-                            <img class="relax" src="media/img_01_l.svg" onclick="select_menu(event)">
+                            <img class="relax" src="media/relax.svg" onclick="select_menu(event)">
                         </div>
                         <label>relax</label>
                     </div>
                     <div class="media_row">
                         <div class="media">
-                            <img class="esthe" src="media/img_01_r.svg" onclick="select_menu(event)">
+                            <img class="esthe" src="media/esthe.svg" onclick="select_menu(event)">
                         </div>
                         <label>esthe</label>
                     </div>
@@ -841,14 +841,6 @@
             currentUrl.searchParams.set('time_value', time_value);
             window.history.replaceState({}, '', currentUrl);
         };
-
-        function get_viewport_size() {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            console.log(`Viewport Width: ${width}px`);
-            console.log(`Viewport Height: ${height}px`);
-            return { width, height };
-        }
 
         function show_loading() {
             document.getElementById("loading").style.display = "block";
