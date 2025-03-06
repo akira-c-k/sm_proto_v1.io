@@ -578,7 +578,7 @@
                 font-weight: bold;
             }
 
-            @media (max-height: 520px) {
+            @media (max-height: 660px) {
                 main .calendar_btns {
                     width: 80%;
                     justify-content: space-between;
@@ -841,6 +841,14 @@
             currentUrl.searchParams.set('time_value', time_value);
             window.history.replaceState({}, '', currentUrl);
         };
+
+        function get_viewport_size() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            console.log(`Viewport Width: ${width}px`);
+            console.log(`Viewport Height: ${height}px`);
+            return { width, height };
+        }
 
         function show_loading() {
             document.getElementById("loading").style.display = "block";
